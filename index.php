@@ -70,20 +70,62 @@
                 text-shadow: 0 0 20px #fff, 0 0 30px #00bcd4, 0 0 40px #2196f3, 0 0 50px #9c27b0, 0 0 60px #f44336, 0 0 70px #ff9800, 0 0 80px #ffeb3b;
             }
         }
+
+        .row.header {
+    justify-content: space-between;
+}
+
+
+/* CSS for Loader */
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8); /* semi-transparent white */
+  z-index: 9999; /* ensure the loader is on top of everything */
+}
+
+.loader {
+  border: 5px solid #f3f3f3; /* Light grey */
+  border-top: 5px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite; /* loader spinning animation */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
     </style>
 </head>
 <body>
 <?php
 
+/* Version of the application. */
+$version = "v.1.0.1";
 
 
 ?>
 <div class="container">
+    <div class="row header">
+<div class="marketing-div" style="cursor:pointer;" onclick="redirectMarketing()">
+    <img src="images/insist-logo.png" width="100" alt="Company Logo" class="company-logo">
+    <p style = "font-size: small; font-weight: 500;">Izdelal In.SIST d.o.o.</p>
+    </div>
     <center><div class="clock" id="digitalClock"></div></center>
-    <h1 class="text-center mt-4">NOTRANJA PRIJAVA KRŠITVE PREDPISA V DELOVNEM OKOLJU</h1>
+
+    </div>
+    <h1 class="text-center mt-4">NOTRANJA PRIJAVA KRŠITVE PREDPISA V DELOVNEM OKOLJU <p style = "font-size: small;"><?php echo $version ?></p></h1>
     <p>Vašo prijavo bo obravnaval zaupnik v organizaciji in vam po potrebi nudil pomoč v primeru povračilnih ukrepov delodajalca. Prijava bo obravnavana v postopku, kot je opredeljen v notranjem pravilniku. Če tako želite, lahko prijavo podate anonimno, brez razkritja svojih osebnih podatkov. Če želite prejeti povratno informacijo, pa morate navesti, na kateri naslov oziroma način jo želite prejeti.</p>
-    <div class="shrink-button" onclick="shrinkContent()">
-    <div class="shrink-button" onclick="shrinkContent()">
+    <div class="shrink-button" >
+    <div class="shrink-button" >
     <div style="padding: 10px; text-align: right; cursor:pointer;" >
         <i class="material-icons" onclick="closeWindow()" style="font-size: 50px; color: black;">minimize</i>
     </div>
@@ -222,7 +264,7 @@ ukrepe obstaja tveganje)</label>
             <input type="text" class="form-control" id="place_date" name="place_date" required>
         </div>
         <div class="action-buttons">
-            <button type="submit" class="btn btn-success" onclick="tabulateAnswers()">Oddaj</button>
+            <button type="submit" class="btn btn-success" >Oddaj</button>
         </div>
     </form>
 </div>
@@ -303,12 +345,31 @@ ukrepe obstaja tveganje)</label>
         </div>
     </div>
 </div>
+
+
+<div class="loader-container">
+  <div class="loader"></div>
+</div>
 <!-- Bootstrap JS -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <!-- SweetAlert JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Your existing JavaScript -->
 <script>
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Show the loader
+  var loader = document.querySelector('.loader-container');
+  loader.style.display = 'flex';
+
+  // Hide the loader after 1 second
+  setTimeout(function() {
+    loader.style.display = 'none';
+  }, 2000); // 1000 milliseconds = 1 second
+});
+
+
+
 function updateFileName(input) {
     const fileName = input.files[0].name;
     const label = document.getElementById('fileLabel');
@@ -433,6 +494,11 @@ $('#myModal form').submit(function (e) {
 
 function logoClick() {
     window.location.href = 'https://petpak.si/';
+}
+
+
+function redirectMarketing() {
+    window.open('https://in-sist.si/', '_blank');
 }
 </script>
 <center><img src="/images/logo.png" style="cursor: pointer;" width="150" onclick="logoClick()" alt="Logo"></center>
