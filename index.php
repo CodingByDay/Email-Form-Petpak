@@ -29,7 +29,7 @@
 
 
     body {
-        background-color: blue;
+        background-color: rgb(13, 116, 211);
     }
 
 
@@ -54,7 +54,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-align: center;
             padding: 20px;
-            background-color: blue; 
+            background-color: rgb(13, 116, 211); 
             color: #fff;
             border-radius: 10px;
             display: inline-block;
@@ -81,7 +81,7 @@
 <div class="container">
     <center><div class="clock" id="digitalClock"></div></center>
     <h1 class="text-center mt-4">NOTRANJA PRIJAVA KRŠITVE PREDPISA V DELOVNEM OKOLJU</h1>
-    <p>Vašo prijavo bo obravnaval zaupnik v organizaciji in vam po potrebi nudil pomoč v primeru povračilnih ukrepov delodajalca. Prijava bo obravnavana v postopku, kot je opredeljen v notranjem pravilniku (glej povezavo). Če tako želite, lahko prijavo podate anonimno, brez razkritja svojih osebnih podatkov. Če želite prejeti povratno informacijo, pa morate navesti, na kateri naslov oziroma način jo želite prejeti.</p>
+    <p>Vašo prijavo bo obravnaval zaupnik v organizaciji in vam po potrebi nudil pomoč v primeru povračilnih ukrepov delodajalca. Prijava bo obravnavana v postopku, kot je opredeljen v notranjem pravilniku. Če tako želite, lahko prijavo podate anonimno, brez razkritja svojih osebnih podatkov. Če želite prejeti povratno informacijo, pa morate navesti, na kateri naslov oziroma način jo želite prejeti.</p>
     <div class="shrink-button" onclick="shrinkContent()">
     <div class="shrink-button" onclick="shrinkContent()">
     <div style="padding: 10px; text-align: right; cursor:pointer;" >
@@ -119,43 +119,43 @@
 
 
         <div class="form-group">
-            <label for="organization">Naziv organizacije:</label>
+            <label for="organization">Naziv organizacije <span class="text-danger">*</span></label>
             <input type="text" class="form-control" id="organization" name="organization" required>
         </div>
         <br />
         <div class="form-group">
-            <label for="violation_time">Čas začetka, trajanja in konca kršitve:</label>
+            <label for="violation_time">Čas začetka, trajanja in konca kršitve <span class="text-danger">*</span></label>
             <input type="text" class="form-control" id="violation_time" name="violation_time" required >
         </div>
         <br />
 
         <div class="form-group">
-            <label for="violator_info">Podatki o kršitelju:</label>
+            <label for="violator_info">Podatki o kršitelju <span class="text-danger">*</span></label>
             <input type="text" class="form-control" id="violator_info" name="violator_info" required>
         </div>
         <br />
 
         <div class="form-group">
-            <label for="violation_description">Opis kršitve:</label>
+            <label for="violation_description">Opis kršitve (kaj, kdaj, kje)</label>
             <textarea class="form-control" id="violation_description" name="violation_description" rows="4" cols="50" ></textarea>
         </div>
         <br />
 
         <div class="form-group">
-            <label for="violated_law">Kršeni predpis:</label>
+            <label for="violated_law">Kršeni predpis</label>
             <input type="text" class="form-control" id="violated_law" name="violated_law" >
         </div>
         <br />
 
         <div class="form-group">
-            <label for="evidence">Priče, dokumenti ali druge dokaze:</label>
+            <label for="evidence">Priče ali drugi dokazi <span class="text-danger">*</span></label>
             <textarea class="form-control" id="evidence" name="evidence" rows="4" cols="50" required></textarea>
         </div>
         <br />
 
         <div class="custom-file mb-3">
-        <input type="file" class="custom-file-input" name="evidence_file" id="evidence_file">
-        <label class="custom-file-label" for="customFile">Choose file</label>
+        <input type="file" class="custom-file-input" onchange="updateFileName(this)" name="evidence_file" id="evidence_file">
+        <label class="custom-file-label" id="fileLabel" for="customFile">Izberite datoteko</label>
         <br />
 
     </div>
@@ -163,25 +163,26 @@
         <br />
 
         <div class="form-group">
-            <label>Ali obstaja tveganje povračilnih ukrepov zaradi prijave?</label><br>
+            <label>Ali obstaja tveganje povračilnih ukrepov zaradi prijave? <span class="text-danger">*</span></label><br>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" onclick="showMeasuresReact()" id="retaliatory_risk_yes" name="retaliatory_risk" value="yes">
+                <input class="form-check-input" required type="radio" onclick="showMeasuresReact()" id="retaliatory_risk_yes" name="retaliatory_risk" value="yes">
                 <label class="form-check-label" for="retaliatory_risk_yes">DA</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" onclick="hideMeasuresReact()" type="radio" id="retaliatory_risk_no" name="retaliatory_risk" value="no">
+                <input class="form-check-input" required onclick="hideMeasuresReact()" type="radio" id="retaliatory_risk_no" name="retaliatory_risk" value="no">
                 <label class="form-check-label" for="retaliatory_risk_no">NE</label>
             </div>
         </div>
         <br />
 
         <div class="form-group" id="measures_react">
-            <label for="retaliatory_measures">Povračilni ukrepi:</label>
+            <label for="retaliatory_measures">Povračilni ukrepi (navedite, za katere povračilne 
+ukrepe obstaja tveganje)</label>
             <textarea class="form-control" id="retaliatory_measures" name="retaliatory_measures" rows="4" cols="50"></textarea>
 
 
             <div class="form-group">
-            <label>Ali potrebujete pomoč in zaščito pred povračilnimi ukrepi (10. člen ZZPri)?</label><br>
+            <label>Ali potrebujete pomoč in zaščito pred povračilnimi ukrepi?</label><br>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="legal_options" name="legal_options[]" value="Informacije o pravnih možnostih">
                 <label class="form-check-label" for="legal_options">Informacije o pravnih možnostih</label>
@@ -211,13 +212,13 @@
         <div class="form-group">
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="confirmation" name="confirmation" required >
-                <label class="form-check-label" for="confirmation">Potrjujem resničnost informacij</label>
+                <label class="form-check-label" for="confirmation">Potrjujem resničnost informacij <span class="text-danger">*</span></label>
             </div>
         </div>
         <br />
 
         <div class="form-group">
-            <label for="place_date">Kraj in datum:</label>
+            <label for="place_date">Kraj in datum <span class="text-danger">*</span></label>
             <input type="text" class="form-control" id="place_date" name="place_date" required>
         </div>
         <div class="action-buttons">
@@ -239,27 +240,27 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label for="fullName">Ime in priimek:</label>
+            <label for="fullName">Ime in priimek</label>
             <input type="text" class="form-control" name = "fullname" id="fullName">
           </div>
           <div class="form-group">
-            <label for="connectionType">Zaposlen ali druga povezava z delovnim okoljem:</label>
+            <label for="connectionType">Zaposlen ali druga povezava z delovnim okoljem</label>
             <input type="text" class="form-control" name="connectionType" id="connectionType">
           </div>
           <div class="form-group">
-            <label for="address">Naslov:</label>
+            <label for="address">Naslov</label>
             <input type="text" class="form-control" name="address" id="address">
           </div>
           <div class="form-group">
-            <label for="email">E-pošta:</label>
+            <label for="email">E-pošta</label>
             <input type="email" class="form-control" name="email" id="email">
           </div>
           <div class="form-group">
-            <label for="phone">Telefon:</label>
+            <label for="phone">Telefon</label>
             <input type="tel" class="form-control" name="phone" id="phone">
           </div>
           <div class="form-group">
-            <label for="otherContacts">Drugi kontaktni podatki:</label>
+            <label for="otherContacts">Drugi kontaktni podatki</label>
             <input type="text" class="form-control" name="otherContacts" id="otherContacts">
           </div>
 
@@ -291,7 +292,7 @@
             <div class="modal-body">
                 <form id="contactForm">
                     <div class="form-group">
-                        <label for="feedbackEmail">E-pošta:</label>
+                        <label for="feedbackEmail">E-pošta</label>
                         <input type="email" name="email" class="form-control" id="feedbackEmail">
                     </div>
                     <!-- Other fields as needed -->
@@ -308,7 +309,11 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Your existing JavaScript -->
 <script>
-
+function updateFileName(input) {
+    const fileName = input.files[0].name;
+    const label = document.getElementById('fileLabel');
+    label.innerText = fileName;
+}
 function closeWindow() {
     var surveyContainer = document.getElementById("quiz");
         surveyContainer.style.display = "none";
@@ -408,9 +413,13 @@ $('#myModal form').submit(function (e) {
         })
         .then(response => {
             if (response.ok) {
-                Swal.fire('Uspeh!', 'Podatki uspešno poslani!', 'success');
+                Swal.fire('Uspeh!', 'Podatki uspešno poslani!', 'success').then(() => {
+                    location.reload();
+                });
             } else {
-                Swal.fire('Napaka!', 'Napaka, poskusite kasneje.', 'error');
+                Swal.fire('Napaka!', 'Napaka, poskusite kasneje.', 'error').then(() => {
+                    location.reload();
+                });
             }
         })
         .catch(error => {
@@ -422,8 +431,10 @@ $('#myModal form').submit(function (e) {
             
         });
 
-
+function logoClick() {
+    window.location.href = 'https://petpak.si/';
+}
 </script>
-<center><img src="/images/logo.png" width="150" alt="Logo"></center>
+<center><img src="/images/logo.png" style="cursor: pointer;" width="150" onclick="logoClick()" alt="Logo"></center>
 </body>
 </html>
